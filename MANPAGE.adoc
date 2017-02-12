@@ -1,0 +1,63 @@
+= udloader(1)
+Romain Lespinasse
+:doctype: manpage
+:page-layout: base
+:man-linkstyle: pass:[blue R < >]
+
+== NAME
+
+udloader - as *USB Drives Loader* utility
+
+== SYNOPSIS
+
+*udloader* *-p* /path/to/content [*-n* STUFF] [*-v* 1] [*-c* 1] [*-s* 1]
+
+*udloader* *-h*
+
+== DESCRIPTION
+
+The udloader(1) command load a folder content into multiple USB drives.
+
+The USB drives will be named *{{ name-key }}V{{ version }}D{{ drive_increment }}*
+
+== OPTIONS
+
+*-c, --count* '1'::
+    Total count of USB drives to treat. The increment will be used to 
+    generate the full name of all USB drives.
+
+*-h, --help*::
+    Print the help.
+
+*-n, --name-key* 'STUFF'::
+    Name used to generate the full name of all USB drives.
+
+*-p, --content-path* '/path/to/content'::
+    Define a path to the content to load on USB drives.
+
+*-s, --start-increment* '1'::
+    Position to start the drive increment of USB drives. The increment 
+    will be used to generate the full name of all USB drives.
+
+*-v, --version* '1'::
+    Version used to generate the full name of all USB drives.
+
+== EXIT STATUS
+
+The *udloader* utility exits 0 on success, and >0 if an error occurs.
+
+== COMPATIBILITY
+
+The *udloader* utility is only compatible with *macOS*.
+
+== BUGS
+
+See the *udloader* issue tracker: <https://github.com/continuouseverything/udloader/issues?state=open>
+
+== AUTHORS
+
+*udloader* is written by Romain Lespinasse.
+
+== RESOURCES
+
+Git repository on GitHub: <https://github.com/continuouseverything/udl>

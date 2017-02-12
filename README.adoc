@@ -1,0 +1,29 @@
+= udloader
+
+USB Drives loader - Utility to load a folder content into multiple USB drives.
+
+== Installation
+
+[source,shell]
+----
+$ brew install continuouseverything/utility/udloader
+----
+
+== Usage
+
+[source,shell]
+.Load /path/to/folder/content/ into 3 USB drives renamed STUFFV1D01, STUFFV1D02, and STUFFV1D03 
+----
+$ udloader -p /path/to/content/ -n STUFF -v 1 -c 3
+----
+
+== Process
+
+For a set of USB drives,
+
+* find a new connected USB drive
+* rename this USB drive
+* clean the USB drive
+* transfer the content
+* eject the USB drive
+* wait for the next USB drive
