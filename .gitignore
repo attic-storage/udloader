@@ -1,4 +1,5 @@
 dist/
+build/
 *.html
 *.1
 *.tar.gz
