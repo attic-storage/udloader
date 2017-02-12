@@ -29,4 +29,7 @@ output_file:
 version:
 	@echo '$(VERSION)'
 
+devtools:
+	@brew bundle
+
 .PHONY: build build_bin build_manpage version
