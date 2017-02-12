@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+UUID=$1
+USBDRIVENAME=$2
+CONTENTPATH=$3
+
+echo "..${USBDRIVENAME}: $(diskutil rename "${UUID}" "${USBDRIVENAME}")"
+echo "..${USBDRIVENAME}: Clean USB drive $(rm -rf /Volumes/${USBDRIVENAME}/*)"
+echo "..${USBDRIVENAME}: Copy to USB drive from ${CONTENTPATH} $(cp -R ${CONTENTPATH}/* /Volumes/${USBDRIVENAME}/)"
+echo "..${USBDRIVENAME}: $(diskutil eject ${UUID})"

@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+CONTENTPATH=/path/to/content
+NAMEKEY=STUFF
+VERSION=1
+COUNT=1
+USBDRIVE=1
+
+function usage
+{
+    echo "usage: udloader [[-p ${CONTENTPATH} [-n ${NAMEKEY}] [-v ${VERSION}] [-c ${COUNT}] [-s ${USBDRIVE}]] | [-h]]"
+}
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -p | --content-path )   shift
+                                CONTENTPATH=$1
+                                ;;
+        -n | --name-key )       shift
+                                NAMEKEY=$1
+                                ;;
+        -v | --version )        shift
+                                VERSION=$1
+                                ;;
+        -c | --count )          shift
+                                COUNT=$1
+                                ;;
+        -s | --start-id )        shift
+                                USBDRIVE=$1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
+COUNT=$((COUNT+USBDRIVE))
+USBDRIVENAME="${NAMEKEY}V${VERSION}K$(printf %02d $USBDRIVE)"
+echo "${USBDRIVENAME}: Search of a USB drive"
+
+until [ $USBDRIVE -ge $COUNT ]
+do
+  UUID=$(df -lH | grep "/Volumes/*" | grep -v "${NAMEKEY}V${VERSION}" | head -n 1 | cut -d" " -f1)
+
+  if [ -n "$UUID" ]; then
+    echo "..${USBDRIVENAME}: Load ${UUID}"
+    ./udload $UUID $USBDRIVENAME $CONTENTPATH &
+    USBDRIVE=$((USBDRIVE+1))
+    USBDRIVENAME="${NAMEKEY}V${VERSION}K$(printf %02d $USBDRIVE)"
+    if [ $USBDRIVE -lt $COUNT ]; then
+      echo "${USBDRIVENAME}: Search of a USB drive"
+      sleep 1
+    fi
+  else
+    sleep 5
+  fi
+done
+
+while true; do
+  running=$(jobs | wc -l)
+  if [ $running -gt 1 ]; then
+    sleep 1
+  else
+    break
+  fi
+done
+wait
+echo "All USB drives are loaded."
