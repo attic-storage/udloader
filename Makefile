@@ -35,5 +35,12 @@ version:
 
 devtools:
 	@brew bundle
+	@gem install asciidoctor --no-rdoc --no-ri
+
+citools: ## Install ci tools
+	@gem install travis --no-rdoc --no-ri
+
+validate_ci: ## Validate .travis.yml file
+	@travis lint .travis.yml
 
 .PHONY: build build_bin build_manpage clean output_path output_file version devtools

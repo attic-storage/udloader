@@ -1,0 +1,19 @@
+language: ruby
+os: osx
+env:
+- DEPLOY_FILE=$(make output_path)
+install:
+- brew update
+- make devtools
+script:
+- make build
+deploy:
+  provider: releases
+  api_key:
+    secure: tR9Ey+lpmDCaxi5NWX83SvGk6c4QjiNWdOZfKcyYbWMnNAKnyaKBxuSQFM4jqHdHpNyxvvdDd1LyXkj0OBa1aWJ8XNjQ4/CLgNba/63i3oCZ72smgY+W8Nxhl6cCvfy1S0+xB26YT8z5hhyDwQCKNeqszSCL59CY3GcV7kXC/RiFZCk3TayAW25oArrGA1aC+NeOM40OdGUGhF/2hcLVCsDC9Ec7WzpfF28mZantZryExcwNaN9MrERTxogusz1H5mxotBQHyOqKsEQNBZTJTf3fBGbog/Tlf+9LMA3pRRMQ54VmPY8U6m1vyhoVb3aDHZpQDUzbzU03gcwvehNOEgPHzpZmrMSiNvY6j18J3HLN6vJ1vudzKLe19U27UspoQLaqGBlUJOnNyMlzJtXRjp4gBhP5KuI9EURtjawmUT3e+mYWSc8/quCfZH83ZFn85uvX1rg4yq+lyhajhfng7fP+SfnqSe29Y/J502yzXwhVb1OrypswZ2XyZWA+nxYVkwdw5VyU7EsvnJ+Pc2ZgpmnkyE+dG2OsGlQ6BGIX5kPcvPsIBsD8iOpnBTFv6Z1DiT1hY6DsRINIsTAaveh6T/8d95aXxBQqPYf0UfH5hsu0Q5M89ZbWpVSJWK95kJUeUT4La2uqU4zgaCuBqKt++3AAUG5/Yw88whna+BSDon0=
+  file: "${DEPLOY_FILE}"
+  skip_cleanup: true
+  on:
+    tags: true
+after_script:
+  - echo "Build of ${DEPLOY_FILE} done"
