@@ -1,5 +1,7 @@
 = udloader
 
+image::http://unmaintained.tech/badge.svg[]
+
 USB Drives loader - Utility to load a folder content into multiple USB drives.
 
 == Installation
